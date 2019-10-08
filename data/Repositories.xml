@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Repositories>
+    <RepoList>
+        <RepoInfo>
+            <RepoHost>localhost</RepoHost>
+            <RepoName>Dummy1</RepoName>
+            <repoPassword>sbi-ZG1hZG1pbjE=</repoPassword>
+            <RepoPort>1489</RepoPort>
+            <RepoUser>dmadmin</RepoUser>
+        </RepoInfo>
+    </RepoList>
+</Repositories>
