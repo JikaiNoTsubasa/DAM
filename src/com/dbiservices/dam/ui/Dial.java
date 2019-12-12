@@ -2,18 +2,22 @@ package com.dbiservices.dam.ui;
 
 import java.awt.GridLayout;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
+import com.dbiservices.dam.engine.FavoriteQuery;
 import com.dbiservices.dam.engine.RepoInfo;
 import com.dbiservices.dam.engine.Repositories;
+import com.dbiservices.dam.utils.SpringUtilities;
 
 
 public class Dial {
@@ -68,6 +72,42 @@ public class Dial {
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			return (RepoInfo)comboRepo.getSelectedItem();
+		}
+		return null;
+	}
+	
+	public static FavoriteQuery showSaveToFav(String query) {
+		JTextField textName = new JTextField();
+		JTextArea areaQuery = new JTextArea(query);
+		areaQuery.setLineWrap(true);
+		areaQuery.setColumns(30);
+		areaQuery.setWrapStyleWord(true);
+		areaQuery.setSize(areaQuery.getPreferredSize().width, 1);
+		JScrollPane scroll = new JScrollPane(areaQuery);
+		
+		JLabel labName = new JLabel("Favorite Name:");
+		JLabel labQuery = new JLabel("Query:");
+		
+		SpringLayout layout = new SpringLayout();
+		JPanel panel = new JPanel(layout);
+		panel.add(labName);
+		panel.add(textName);
+		panel.add(labQuery);
+		panel.add(scroll);
+		
+		//Lay out the panel.
+		SpringUtilities.makeCompactGrid(panel,
+		                                2, 2, //rows, cols
+		                                6, 6,        //initX, initY
+		                                6, 6);       //xPad, yPad
+		
+		int result = JOptionPane.showConfirmDialog(null, panel, "Save Favorite Query",
+				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		if (result == JOptionPane.OK_OPTION) {
+			FavoriteQuery fq = new FavoriteQuery();
+			fq.setName(textName.getText());
+			fq.setQuery(areaQuery.getText());
+			return fq;
 		}
 		return null;
 	}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Favorites>
+    <FavList>
+        <FavQuery>
+            <name>Get DM User</name>
+            <query>select * from dm_user
+</query>
+        </FavQuery>
+    </FavList>
+</Favorites>

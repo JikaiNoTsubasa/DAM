@@ -1,17 +1,25 @@
 package com.dbiservices.dam.ui;
 
+import java.awt.Color;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import com.dbiservices.dam.ctrl.Controller;
 import com.dbiservices.dam.engine.RepoInfo;
+import com.dbiservices.dam.utils.Const;
+import com.dbiservices.dam.utils.Icons;
 
+import fr.triedge.fwk.conf.Config;
 import fr.triedge.fwk.utils.SBIEncrypter;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame implements WindowListener{
 
 	private static final long serialVersionUID = -2398011287944159974L;
 	private Controller controller;
@@ -21,13 +29,22 @@ public class MainFrame extends JFrame{
 	private JMenuItem itemQuit, itemNewSession, itemOpenSession;
 	
 	private JTabbedPane tabbedPane;
+	private JPanel frameBar;
 	
 
 	public void build() {
 		setTitle("Documentum Amadeus Manager");
-		setSize(800, 600);
+		setIconImage(Icons.logoIcon.getImage());
+		setSize(
+				Integer.parseInt(Config.params.getProperty(Const.CONFIG_FRAME_WIDTH, "800")), 
+				Integer.parseInt(Config.params.getProperty(Const.CONFIG_FRAME_HEIGHT, "600")));
+		setExtendedState(Integer.parseInt(Config.params.getProperty(Const.CONFIG_FRAME_FULLSCREEN, "0")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		
+		setFrameBar(new JPanel());
+		getFrameBar().setSize(getWidth(), 20);
+		getFrameBar().setBackground(Color.CYAN);
 		
 		setBar(new JMenuBar());
 		setMenuFile(new JMenu("File"));
@@ -49,6 +66,8 @@ public class MainFrame extends JFrame{
 		
 		setTabbedPane(new JTabbedPane());
 		setContentPane(getTabbedPane());
+		
+		addWindowListener(this);
 		
 		setVisible(true);
 	}
@@ -132,5 +151,42 @@ public class MainFrame extends JFrame{
 
 	public void setTabbedPane(JTabbedPane tabbedPane) {
 		this.tabbedPane = tabbedPane;
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		getController().actionCloseWindow();
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+	}
+
+	public JPanel getFrameBar() {
+		return frameBar;
+	}
+
+	public void setFrameBar(JPanel frameBar) {
+		this.frameBar = frameBar;
 	}
 }

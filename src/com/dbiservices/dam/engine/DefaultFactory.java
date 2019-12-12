@@ -12,5 +12,10 @@ public class DefaultFactory {
 		repos.getRepoInfos().add(info);
 		return repos;
 	}
+	
+	public static Favorites createDefaultFavList() {
+		Favorites favs = new Favorites();
+		return favs;
+	}
 
 }

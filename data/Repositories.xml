@@ -8,5 +8,12 @@
             <RepoPort>1489</RepoPort>
             <RepoUser>dmadmin</RepoUser>
         </RepoInfo>
+        <RepoInfo>
+            <RepoHost>192.168.56.50</RepoHost>
+            <RepoName>DBI01</RepoName>
+            <repoPassword>sbi-dmFncmFudA==</repoPassword>
+            <RepoPort>1489</RepoPort>
+            <RepoUser>vagrant</RepoUser>
+        </RepoInfo>
     </RepoList>
 </Repositories>
