@@ -42,4 +42,8 @@ public class DFC {
 		query.setDQL(dql);
 		return query.execute(session, 1);
 	}
+	
+	public static synchronized void closeSession(IDfSession session) throws DfException {
+		session.disconnect();
+	}
 }

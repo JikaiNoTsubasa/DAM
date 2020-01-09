@@ -1,10 +1,15 @@
 package com.dbiservices.dam.ui;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -12,11 +17,15 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import com.dbiservices.dam.ctrl.Controller;
+import com.dbiservices.dam.engine.DFC;
 import com.dbiservices.dam.engine.RepoInfo;
 import com.dbiservices.dam.utils.Const;
 import com.dbiservices.dam.utils.Icons;
+import com.documentum.fc.client.IDfSession;
+import com.documentum.fc.common.DfException;
 
 import fr.triedge.fwk.conf.Config;
+import fr.triedge.fwk.ui.UI;
 import fr.triedge.fwk.utils.SBIEncrypter;
 
 public class MainFrame extends JFrame implements WindowListener{
@@ -70,6 +79,52 @@ public class MainFrame extends JFrame implements WindowListener{
 		addWindowListener(this);
 		
 		setVisible(true);
+	}
+	
+	public void addTab(JPanel tab, String title) {
+		// tab.build();
+		getTabbedPane().addTab(title, tab);
+		getTabbedPane().setSelectedComponent(tab);
+
+		int index = getTabbedPane().indexOfTab(title);
+		JPanel pnlTab = new JPanel(new GridBagLayout());
+		pnlTab.setOpaque(false);
+		JLabel lblTitle = new JLabel(title);
+		JButton btnClose = new JButton(Icons.closeIcon);
+		btnClose.setPreferredSize(new Dimension(12, 12));
+		btnClose.setBorderPainted(false); 
+		btnClose.setContentAreaFilled(false); 
+		btnClose.setFocusPainted(false);
+
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 1;
+
+		pnlTab.add(lblTitle, gbc);
+
+		gbc.gridx++;
+		gbc.weightx = 0;
+		pnlTab.add(btnClose, gbc);
+
+		getTabbedPane().setTabComponentAt(index, pnlTab);
+
+		btnClose.addActionListener(e -> actionCloseTab(tab));
+	}
+	
+	public void actionCloseTab(JPanel tab) {
+		if (tab != null) {
+			getTabbedPane().remove(tab);
+			if (tab instanceof RepositoryPanel) {
+				IDfSession ses = ((RepositoryPanel) tab).getSession().getSession();
+				try {
+					DFC.closeSession(ses);
+				} catch (DfException e) {
+					UI.error("Error closing session",e);
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	private void actionNewSession() {

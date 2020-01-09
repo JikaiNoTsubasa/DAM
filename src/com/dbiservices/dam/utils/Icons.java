@@ -8,11 +8,12 @@ import javax.swing.ImageIcon;
 
 public class Icons {
 
-	public static ImageIcon logoIcon, favIcon, goIcon;
+	public static ImageIcon logoIcon, favIcon, goIcon, closeIcon;
 	
 	static {
 		try {
 			logoIcon = new ImageIcon(ImageIO.read(new File(Const.ICONS_LOCATION+"/DamIcon.png")));
+			closeIcon = new ImageIcon(ImageIO.read(new File(Const.ICONS_LOCATION+"/o_close.png")));
 			favIcon = new ImageIcon(ImageIO.read(new File(Const.ICONS_LOCATION+"/o_fav.png")));
 			goIcon = new ImageIcon(ImageIO.read(new File(Const.ICONS_LOCATION+"/o_go.png")));
 		} catch (IOException e) {

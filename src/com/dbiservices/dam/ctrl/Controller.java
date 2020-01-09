@@ -142,13 +142,13 @@ public class Controller {
 			//RepoSession ses = new RepoSession(null, repo);
 			RepositoryPanel pan = new RepositoryPanel(ses, this);
 			pan.build();
-			getMainFrame().getTabbedPane().addTab(repo.getRepoUser()+"@"+repo.getRepoName(), pan);
+			getMainFrame().addTab(pan, repo.getRepoUser()+"@"+repo.getRepoName());
 		} catch (DfException | GeneralSecurityException | IOException e) {
 			UI.error("Cannot connect to repository: "+repo.toString(), e);
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void actionCloseWindow() {
 		// Save config
 		Config.params.setProperty(Const.CONFIG_FRAME_WIDTH, String.valueOf(getMainFrame().getWidth()));

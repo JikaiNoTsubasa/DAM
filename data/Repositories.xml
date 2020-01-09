@@ -2,11 +2,11 @@
 <Repositories>
     <RepoList>
         <RepoInfo>
-            <RepoHost>localhost</RepoHost>
-            <RepoName>Dummy1</RepoName>
-            <repoPassword>sbi-ZG1hZG1pbjE=</repoPassword>
+            <RepoHost>192.168.56.50</RepoHost>
+            <RepoName>DBI01</RepoName>
+            <repoPassword>sbi-dmFncmFudA==</repoPassword>
             <RepoPort>1489</RepoPort>
-            <RepoUser>dmadmin</RepoUser>
+            <RepoUser>vagrant</RepoUser>
         </RepoInfo>
         <RepoInfo>
             <RepoHost>192.168.56.50</RepoHost>
